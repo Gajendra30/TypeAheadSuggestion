@@ -126,9 +126,15 @@ public class AutoCompleteWithTrie {
         t.insert("alibaba is an ecommerce giant based out of China");
         t.insert("ebay");
         t.insert("walmart");          
+        System.out.println("Search started....");
         HashMap<String,Integer> map= t.autocomplete("ali");
+        if(map.size()==0) {
+        	System.out.println("No data found...");
+        }
         map.entrySet().stream()
                 .sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue())).forEach(k -> System.out.println(k.getKey() + ": " + k.getValue()));
+        System.out.println("Search completed....");    
+		
             
 		
   }

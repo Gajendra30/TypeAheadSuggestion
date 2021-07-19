@@ -21,9 +21,11 @@ public class Main {
 			CartItem cartItem = new CartItem();
 			Cart cart = new Cart(cartItem);
 			Cart cart1 = new Cart(cartItem);
-			CustomGC.get(cart);
-			CustomGC.get(cart1);
-			CustomGC.release(cart1);
+			User user=new User(cart);
+			User user1=new User(cart1);
+			CustomGC.get(user);
+			CustomGC.get(user1);
+			CustomGC.release(user1);
 			CustomGC.gc();
 		} catch (Exception e) {
 		}

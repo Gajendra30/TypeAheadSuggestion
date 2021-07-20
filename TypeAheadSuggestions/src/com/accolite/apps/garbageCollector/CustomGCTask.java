@@ -1,6 +1,7 @@
 package com.accolite.apps.garbageCollector;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 
@@ -22,22 +23,22 @@ public void run() {
 	System.out.println("Starting CustomGC Task thread");
 	Set<Integer> markSetBit = new HashSet<>();
 	mark(root, markSetBit);
-	sweepReference(root, markSetBit);
+	sweep(root, markSetBit);
 	
 }
 
-private Reference sweepReference(Reference root, Set<Integer> markSet) {
+private Reference sweep(Reference root, Set<Integer> markSet) {
 	Object obj = root.getObject();
 
 	int hashCode = System.identityHashCode(obj);
 
-	Set<Reference> deleteReferences = new HashSet<>();
+	LinkedList<Reference> deleteReferences = new LinkedList<>();
 	for (Reference reference : root.getReferences()) {
-		if (sweepReference(reference, markSet) == null)
+		if (sweep(reference, markSet) == null)
 			deleteReferences.add(reference);
 	}
 
-	addObjectToQueue(deleteReferences);
+	addObject(deleteReferences);
 	
 	root.getReferences().removeAll(deleteReferences);
 
@@ -47,7 +48,7 @@ private Reference sweepReference(Reference root, Set<Integer> markSet) {
 }
 
 //add release reference to queue to finalize the object
-private void addObjectToQueue(Set<Reference> deleteReferences) {
+private void addObject(LinkedList<Reference> deleteReferences) {
 	for (Reference reference : deleteReferences) {
 		try {
 			if (reference.getObject().getClass().getDeclaredMethod("finalize") == null)

@@ -1,17 +1,19 @@
 package com.accolite.apps.garbageCollector;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Set;
 
 public class Reference {
 	
 	private Object object;
-	private Set<Reference>  references;
+	private LinkedList<Reference>  references;
+	private int referenceCount;
 	
 	public Reference(Object object) {
 		this.object = object;
-		references = new HashSet<>();
+		references = new LinkedList<>();
 	}
 	
 	public Object getObject() {
@@ -22,7 +24,7 @@ public class Reference {
 		this.object = object;
 	}
 
-	public Set<Reference> getReferences() {
+	public LinkedList<Reference> getReferences() {
 		return references;
 	}
 
@@ -45,5 +47,13 @@ public class Reference {
 			return false;
 		Reference other = (Reference) obj;
 		return Objects.equals(object, other.object);
+	}
+
+	public int getReferenceCount() {
+		return referenceCount;
+	}
+
+	public void setReferenceCount(int referenceCount) {
+		this.referenceCount = referenceCount;
 	}
 }

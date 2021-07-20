@@ -3,6 +3,7 @@ package com.accolite.apps.garbageCollector;
 import com.accolite.apps.garbageCollector.Model.Cart;
 import com.accolite.apps.garbageCollector.Model.CartItem;
 import com.accolite.apps.garbageCollector.Model.Dummy;
+import com.accolite.apps.garbageCollector.Model.User;
 
 public class Main {
 	
@@ -27,13 +28,14 @@ public class Main {
 			CustomGC.get(user1);
 			CustomGC.release(user1);
 			CustomGC.gc();
+			
 		} catch (Exception e) {
 		}
 	}
 
 	public static void main(String[] args) {
 		testGC();
-		System.out.println("Creating cartItem and cart then release it from references..");
+		System.out.println("Creating User, Cart and cartItem then release it from references..");
 		testGCHierachy();
 	}
 
